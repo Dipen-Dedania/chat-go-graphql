@@ -1,3 +1,2 @@
-# chat-go-graphql
-A sample chat application with Golang, GraphQL &amp; ReactJS with socket
-- Initial commit
+A User to User Chat Application build using React, SCSS, GoLang, GraphQL , Socket and Apollo. 
+
