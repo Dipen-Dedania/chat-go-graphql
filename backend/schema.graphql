@@ -1,0 +1,40 @@
+type User{
+    id: ID!
+    username: String!
+    email: String!
+    contactno: String!
+    password: String!
+}
+input NewUser{
+    username: String!
+    email: String!
+    contactno: String!
+    password: String!
+}
+input UpdateUser{
+    username: String!
+    email: String!
+    contactno: String!
+    password: String!
+}
+type Chat{
+    id: ID!
+    senderid: User!
+    receiverid: User!
+    message: String!  
+    createdAt: Time!
+}
+type Subscription{
+    messagePosted: Chat!
+}
+type Mutation{
+    createUser(input: NewUser!): User!
+    deleteUser(id: ID!): String!
+    updateUser(id: ID!, input: UpdateUser!): User!
+    postMessage(senderid: Int!,receiverid: Int!,message: String!): Chat
+}
+type Query{
+    users: [User!]!
+    chats(client1name: String!,client2name: String!): Chat!
+}
+scalar Time
