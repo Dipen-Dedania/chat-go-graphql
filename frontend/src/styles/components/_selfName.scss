@@ -1,0 +1,75 @@
+.enter-name {
+  width: 200px;
+  height: 50px;
+  position: relative;
+  display: inline-block;
+  margin-top: 100px;
+  margin-left: 20px;
+
+  .cbox {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    outline: none !important;
+    top: -10px;
+    right: -10px;
+    width: 30px;
+    height: 30px;
+    background: $orange;
+    border-radius: 100%;
+    -webkit-appearance: none;
+    z-index: 3;
+    &:before,
+    &:after {
+      position: absolute;
+      content: "";
+      width: 20px;
+      height: 2px;
+      background: #e8e8e8;
+      transition: 0.4s all;
+    }
+    &:after {
+      transform: rotate(90deg);
+    }
+    &:checked {
+      ~ .message {
+        width: 200px;
+        height: 50px;
+        transition: 0.3s width, 0.3s height 0.2s;
+      }
+      &:before,
+      &:after {
+        transform: rotate(360deg);
+        transition: 0.4s all;
+      }
+      ~ .add {
+        font-size: 13px;
+        transform: translateY(-16px);
+        transition: 0.3s all;
+      }
+    }
+  }
+
+  .add {
+    position: absolute;
+    right: 25px;
+    transition: 0.6s all 0.3s;
+    letter-spacing: 1px;
+    color: $orange;
+  }
+}
+
+.message {
+  position: absolute;
+  color: #fff;
+  right: 0;
+  height: 0;
+  width: 0;
+  transition: 0.4s all;
+  background: none;
+  border: 2px solid $orange;
+  transition: 0.4s width 0.2s, 0.1s height;
+  font-size: 20px;
+  padding-left: 10px;
+}

@@ -1,0 +1,10 @@
+.userlist {
+  height: 200px;
+  width: 200px;
+  border: 2px solid $orange;
+  margin: 0 auto;
+
+  .item {
+    border-bottom: 1px solid $orange;
+  }
+}
