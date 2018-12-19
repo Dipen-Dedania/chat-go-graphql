@@ -9,6 +9,7 @@ import (
 	"github.com/aneri/chat-go-graphql/backend/config"
 )
 
+// DbConnection model
 type DbConnection struct {
 	Db *sql.DB
 }
@@ -16,6 +17,7 @@ type DbConnection struct {
 var once sync.Once
 var instance *DbConnection
 
+// DbConnect for database connection
 func DbConnect() (*DbConnection, error) {
 	fmt.Println("starting server")
 	config, err := config.LoadConfiguration("config.json")
