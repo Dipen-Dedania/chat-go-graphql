@@ -5,12 +5,11 @@ import SingleUser from "./SingleUser";
 export default class UserList extends Component {
   render() {
     return (
-      <div className="userlist">
-        <div class="ui list">
-          <SingleUser />
-          <SingleUser />
-          <SingleUser />
-        </div>
+      <div class="ui middle aligned divided list">
+        <SingleUser />
+        <SingleUser />
+        <SingleUser />
+        <SingleUser />
       </div>
     );
   }
