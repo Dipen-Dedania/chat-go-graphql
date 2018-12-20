@@ -3,12 +3,12 @@ import UserImg from "../../images/userimg.png";
 export default class SingleUser extends Component {
   render() {
     return (
-      <div class="item">
-        <div class="right floated content">
-          <div class="ui button">Add</div>
+      <div className="item">
+        <div className="right floated content">
+          <div className="ui button">Chat</div>
         </div>
-        <img class="ui avatar image" src={UserImg} />>
-        <div class="content">Lena</div>
+        <img className="ui avatar image" src={UserImg} />
+        <div className="content">Akhil</div>
       </div>
     );
   }

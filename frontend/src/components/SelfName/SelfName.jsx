@@ -3,12 +3,12 @@ import React, { Component } from "react";
 export default class SelfName extends Component {
   render() {
     return (
-      <div class="enter-name">
-        <input class="cbox" type="checkbox" />
-        <label class="add" for="cbox">
-          Enter Name
+      <div className="enter-name">
+        <input className="cbox" type="checkbox" />
+        <label className="add" htmlFor="cbox">
+          Enter Your Name
         </label>
-        <input class="message" type="text" />
+        <input className="message" type="text" />
       </div>
     );
   }

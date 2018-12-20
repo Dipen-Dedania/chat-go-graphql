@@ -1,6 +1,26 @@
-.list {
-  height: 200px;
-  width: 200px;
-  color: white;
-  margin: 0 auto !important;
+.userList {
+  .viewUsers {
+    text-align: right;
+    margin-top: 90px;
+    .button {
+      background: rgb(32, 231, 42);
+      color: white;
+    }
+  }
+
+  .list {
+    height: 300px;
+    width: 200px;
+    color: white;
+    float: right;
+    margin-top: 20px !important;
+    overflow: auto;
+  }
+
+  @media only screen and (max-width: 759px) {
+    .list {
+      float: none;
+      margin: 0 auto !important;
+    }
+  }
 }
