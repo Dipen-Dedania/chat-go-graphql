@@ -44,7 +44,7 @@ func (r *mutationResolver) Userjoin(ctx context.Context, name string, email stri
 		Email:   email,
 		Contact: contact,
 	}
-	if _, err := crConn.Db.Exec("INSERT INTO training.userchat (name,email,contact) VALUES ($1,$2,$3)", users.Name, users.Name, users.Contact); err != nil {
+	if _, err := crConn.Db.Exec("INSERT INTO training.userchat (name,email,contact) VALUES ($1,$2,$3)", users.Name, users.Email, users.Contact); err != nil {
 		return User{}, err
 	}
 	// Observer new user joined
@@ -62,12 +62,12 @@ func (r *queryResolver) Users(ctx context.Context) ([]User, error) {
 	var users []User
 	var user User
 
-	row, err := crConn.Db.Query("SELECT (id, name, email ,contact) FROM training.userchat")
+	row, err := crConn.Db.Query("SELECT id, name, email ,contact FROM training.userchat")
 	if err != nil {
 		return nil, err
 	}
 	for row.Next() {
-		if err := row.Scan(&user.ID); err != nil {
+		if err := row.Scan(&user.ID, &user.Name, &user.Email, &user.Contact); err != nil {
 			return nil, err
 		}
 		users = append(users, user)
