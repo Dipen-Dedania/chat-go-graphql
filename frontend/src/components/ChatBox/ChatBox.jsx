@@ -1,4 +1,6 @@
 import React, { Component } from "react";
+import CloseButton from "../../images/close-button.png";
+import SendButton from "../../images/send.png";
 
 export default class ChatBox extends Component {
   constructor() {
@@ -7,38 +9,51 @@ export default class ChatBox extends Component {
       chatDisplay: "none"
     };
 
-    this.toggleChat = this.toggleChat.bind(this);
+    this.showChat = this.showChat.bind(this);
+    this.closeChat = this.closeChat.bind(this);
   }
-  toggleChat() {
+  showChat() {
     this.setState({
       chatDisplay: ""
+    });
+  }
+  closeChat() {
+    this.setState({
+      chatDisplay: "none"
     });
   }
 
   render() {
     return (
       <div className="chatbox">
-        <button className="open-button" onClick={this.toggleChat}>
+        {/* Open Button */}
+        <button className="open-button" onClick={this.showChat}>
           Chat
         </button>
 
+        {/* REAL CHATBOX */}
         <div
           className="chat-popup"
           id="myChat"
           style={{ display: this.state.chatDisplay }}
         >
-          <form action="/action_page.php" className="form-container">
-            <h1>Chat</h1>
-
-            <label htmlFor="msg">
-              <b>Message</b>
-            </label>
-            <textarea placeholder="Type message.." name="msg" required />
-
-            <button type="submit" className="btn">
-              Send
+          <div className="chatbox-header">
+            <span className="chat-name">Aneri</span>
+            <span className="chat-close" onClick={this.closeChat}>
+              <img src={CloseButton} alt="" />
+            </span>
+          </div>
+          <div className="chatbox-message-area">Heloooooooooooooooooo</div>
+          <div className="chatbox-footer">
+            <input
+              type="text"
+              className="message-input"
+              placeholder="Enter to Send"
+            />
+            <button className="send-msg">
+              <img src={SendButton} alt="Send" />
             </button>
-          </form>
+          </div>
         </div>
       </div>
     );
