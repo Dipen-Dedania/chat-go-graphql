@@ -1,69 +1,89 @@
 /* Button used to open the chat form - fixed at the bottom of the page */
-.open-button {
-  background-color: #555;
-  color: white;
-  padding: 16px 20px;
-  border: none;
-  cursor: pointer;
-  opacity: 0.8;
-  position: fixed;
-  bottom: 23px;
-  right: 28px;
-  width: 280px;
-}
-
-/* The popup chat - hidden by default */
-.chat-popup {
+.chatbox {
   position: fixed;
   bottom: 0;
-  right: 15px;
-  border: 3px solid #f1f1f1;
-  z-index: 9;
-}
+  left: 15px;
+  height: 350px;
+  width: 300px;
 
-/* Add styles to the form container */
-.form-container {
-  max-width: 300px;
-  padding: 10px;
-  background-color: white;
-}
+  .open-button {
+    background-color: #555;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+    opacity: 0.8;
+    position: fixed;
+    bottom: 23px;
+    left: 28px;
+    width: 280px;
+    border-radius: 30px;
+    outline: 0;
+  }
 
-/* Full-width textarea */
-.form-container textarea {
-  width: 100%;
-  padding: 15px;
-  margin: 5px 0 22px 0;
-  border: none;
-  background: #f1f1f1;
-  resize: none;
-  min-height: 200px;
-}
+  .chat-popup {
+    width: 100%;
+    position: fixed;
+    bottom: 0;
+    left: 15px;
+    border: 3px solid #f1f1f1;
+    height: 350px;
+    max-width: 300px;
 
-/* When the textarea gets focus, do something */
-.form-container textarea:focus {
-  background-color: #ddd;
-  outline: none;
-}
+    background: white;
 
-/* Set a style for the submit/send button */
-.form-container .btn {
-  background-color: #4caf50;
-  color: white;
-  padding: 16px 20px;
-  border: none;
-  cursor: pointer;
-  width: 100%;
-  margin-bottom: 10px;
-  opacity: 0.8;
-}
+    .chatbox-header {
+      height: 9%;
+      background: white;
+      padding: 4px;
 
-/* Add a red background color to the cancel button */
-.form-container .cancel {
-  background-color: red;
-}
+      .chat-name {
+        color: #f44336;
+        font-weight: bold;
+        font-size: 15px;
+      }
 
-/* Add some hover effects to buttons */
-.form-container .btn:hover,
-.open-button:hover {
-  opacity: 1;
+      .chat-close {
+        float: right;
+        cursor: pointer;
+      }
+    }
+
+    .chatbox-message-area {
+      height: 83%;
+      background: #c8c8c8;
+      border-top-left-radius: 8px;
+      border-top-right-radius: 8px;
+      padding-top: 5px;
+      padding-left: 5px;
+    }
+    .chatbox-footer {
+      height: 8%;
+      position: relative;
+
+      input {
+        border: none;
+        width: 100%;
+        height: 100%;
+        padding: 8px;
+        border-radius: 20px;
+        font-size: 15px;
+      }
+      .send-msg {
+        position: absolute;
+        right: 0;
+        width: 27px;
+        height: 100%;
+        border-radius: 20px;
+        padding: 0px;
+        border: 0px;
+        outline: 0;
+        background: transparent;
+
+        img {
+          width: 25px;
+        }
+      }
+    }
+  }
 }
