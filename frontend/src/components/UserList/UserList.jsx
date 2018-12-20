@@ -31,14 +31,7 @@ export default class UserList extends Component {
           className="ui middle aligned divided list"
           style={{ display: this.state.userListDisplay }}
         >
-          <SingleUser />
-          <SingleUser />
-          <SingleUser />
-          <SingleUser />
-          <SingleUser />
-          <SingleUser />
-          <SingleUser />
-          <SingleUser />
+          <SingleUser username="Akhil" />
         </div>
       </div>
     );

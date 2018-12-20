@@ -7,8 +7,8 @@ export default class SingleUser extends Component {
         <div className="right floated content">
           <div className="ui button">Chat</div>
         </div>
-        <img className="ui avatar image" src={UserImg} />
-        <div className="content">Akhil</div>
+        <img className="ui avatar image" src={UserImg} alt="Profile Pic" />
+        <div className="content">{this.props.username}</div>
       </div>
     );
   }
