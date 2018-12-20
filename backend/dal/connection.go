@@ -34,12 +34,13 @@ func DbConnect() (*DbConnection, error) {
 		instance = &DbConnection{
 			Db: db,
 		}
-		if _, err := db.Exec("CREATE TABLE IF NOT EXISTS userdata (id SERIAL PRIMARY KEY,name string NOT NULL,email string,contactno string,password string)"); err != nil {
-			return nil, err
+		if _, err := db.Exec("CREATE TABLE IF NOT EXISTS chatApp.userdata (id SERIAL PRIMARY KEY,name string NOT NULL,email string,contactno string,password string)"); err != nil {
+			log.Fatal("error while creating user table", err)
 		}
-		if _, err := db.Exec("CREATE TABLE IF NOT EXISTS chat (id SERIAL PRIMARY KEY, sender_id integer NOT NULL REFERENCES chatApp.userdata (id), receiver_id integer NOT NULL chatApp.userdata (id), message string NOT NULL,createdAt timestamptz)"); err != nil {
-			return nil, err
+		if _, err := db.Exec("CREATE TABLE IF NOT EXISTS chatApp.chat (id SERIAL PRIMARY KEY, sender_id integer NOT NULL REFERENCES chatApp.userdata (id), receiver_id integer NOT NULL chatApp.userdata (id), message string NOT NULL,createdAt timestamptz)"); err != nil {
+			log.Fatal("error while creating chat table", err)
 		}
+		fmt.Println("Tables created successfully")
 	})
 	return instance, err
 }
