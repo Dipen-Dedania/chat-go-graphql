@@ -5,10 +5,10 @@ type User{
     contact: String!
 }
 type Subscription {
-    userJoined: User
+    userJoined: User!
 }
 type Mutation{
-    userjoin(name: String!, email: String!, contcat: String!): User
+    userjoin(name: String!, email: String!, contcat: String!): User!
 }
 type Query{
     users: [User!]!

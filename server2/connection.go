@@ -5,6 +5,8 @@ import (
 	"fmt"
 	"log"
 	"sync"
+
+	_ "github.com/lib/pq"
 )
 
 type DbConnection struct {
@@ -25,10 +27,11 @@ func Connect() (*DbConnection, error) {
 		instance = &DbConnection{
 			Db: db,
 		}
+		if _, err := db.Exec("CREATE TABLE IF NOT EXISTS userchat (id SERIAL PRIMARY KEY,name string NOT NULL,email string,contcat string)"); err != nil {
+			log.Fatal("Error while creating table")
+		}
+		fmt.Println("Table created")
 	})
-	if _, err := db.Exec("CREATE TABLE IF NOT EXISTS userchat (id SERIAL PRIMARY KEY,name string NOT NULL,email string,contcat string)"); err != nil {
-		log.Fatal("Error while creating table")
-	}
-	fmt.Println("User table created successfully")
+
 	return instance, err
 }

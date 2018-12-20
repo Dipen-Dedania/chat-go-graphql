@@ -61,13 +61,13 @@ type ComplexityRoot struct {
 }
 
 type MutationResolver interface {
-	Userjoin(ctx context.Context, name string, email string, contcat string) (*User, error)
+	Userjoin(ctx context.Context, name string, email string, contcat string) (User, error)
 }
 type QueryResolver interface {
 	Users(ctx context.Context) ([]User, error)
 }
 type SubscriptionResolver interface {
-	UserJoined(ctx context.Context) (<-chan *User, error)
+	UserJoined(ctx context.Context) (<-chan User, error)
 }
 
 func field_Mutation_userjoin_args(rawArgs map[string]interface{}) (map[string]interface{}, error) {
@@ -310,6 +310,9 @@ func (ec *executionContext) _Mutation(ctx context.Context, sel ast.SelectionSet)
 			out.Values[i] = graphql.MarshalString("Mutation")
 		case "userjoin":
 			out.Values[i] = ec._Mutation_userjoin(ctx, field)
+			if out.Values[i] == graphql.Null {
+				invalid = true
+			}
 		default:
 			panic("unknown field " + strconv.Quote(field.Name))
 		}
@@ -343,17 +346,16 @@ func (ec *executionContext) _Mutation_userjoin(ctx context.Context, field graphq
 		return ec.resolvers.Mutation().Userjoin(rctx, args["name"].(string), args["email"].(string), args["contcat"].(string))
 	})
 	if resTmp == nil {
+		if !ec.HasError(rctx) {
+			ec.Errorf(ctx, "must not be null")
+		}
 		return graphql.Null
 	}
-	res := resTmp.(*User)
+	res := resTmp.(User)
 	rctx.Result = res
 	ctx = ec.Tracer.StartFieldChildExecution(ctx)
 
-	if res == nil {
-		return graphql.Null
-	}
-
-	return ec._User(ctx, field.Selections, res)
+	return ec._User(ctx, field.Selections, &res)
 }
 
 var queryImplementors = []string{"Query"}
@@ -563,11 +565,7 @@ func (ec *executionContext) _Subscription_userJoined(ctx context.Context, field 
 		}
 		var out graphql.OrderedMap
 		out.Add(field.Alias, func() graphql.Marshaler {
-			if res == nil {
-				return graphql.Null
-			}
-
-			return ec._User(ctx, field.Selections, res)
+			return ec._User(ctx, field.Selections, &res)
 		}())
 		return &out
 	}
@@ -2208,10 +2206,10 @@ var parsedSchema = gqlparser.MustLoadSchema(
     contact: String!
 }
 type Subscription {
-    userJoined: User
+    userJoined: User!
 }
 type Mutation{
-    userjoin(name: String!, email: String!, contcat: String!): User
+    userjoin(name: String!, email: String!, contcat: String!): User!
 }
 type Query{
     users: [User!]!
