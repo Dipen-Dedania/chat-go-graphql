@@ -25,13 +25,40 @@ export default class SelfName extends Component {
           welcomeDisplay: "",
           enterNameDisplay: "none"
         });
+
+        // CODE TO ADD ENTERED NAME TO USER LIST
       }
     }
   }
 
   render() {
     return (
-      <div className="selfname">
+      <div className="self-name">
+        {/* <Query
+    query={gql`
+      {
+        allCourses {
+          id
+          title
+          author
+          description
+          topic
+          url
+        }
+      }
+    `}
+  >
+    {({ loading, error, data }) => {
+      if (loading) return <p>Loading...</p>;
+      if (error) return <p>Error :(</p>;
+      return data.allCourses.map(({ id, title, author, description, topic, url }) => (
+        <div key={id}>
+          <p>{`${title} by ${author}`}</p>
+        </div>
+      ));
+    }}
+  </Query> */}
+
         <div
           className="enter-name"
           style={{ display: this.state.enterNameDisplay }}
