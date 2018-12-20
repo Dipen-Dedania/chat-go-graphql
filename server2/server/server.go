@@ -12,7 +12,7 @@ import (
 	"github.com/gorilla/websocket"
 )
 
-const defaultPort = "3000"
+const defaultPort = "9000"
 
 func main() {
 	port := os.Getenv("PORT")
@@ -30,7 +30,7 @@ func main() {
 		}),
 	)))
 
-	log.Printf("connect to http://localhost:%s/ for GraphQL playground", port)
+	log.Printf("connect to http://192.168.1.145:%s/ for GraphQL playground", port)
 	log.Fatal(http.ListenAndServe(":"+port, router))
 }
 func corsAccess(next http.HandlerFunc) http.HandlerFunc {
