@@ -1,0 +1,15 @@
+type User{
+    id: ID!
+    name: String!
+    email: String!
+    contact: String!
+}
+type Subscription {
+    userJoined: User
+}
+type Mutation{
+    userjoin(name: String!, email: String!, contcat: String!): User
+}
+type Query{
+    users: [User!]!
+}
