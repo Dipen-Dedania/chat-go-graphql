@@ -20,7 +20,7 @@ type mutationResolver struct{ *Resolver }
 
 func (r *mutationResolver) JoinUser(ctx context.Context, name string) (User, error) {
 	panic("not implemented")
-}
+}errerrerr
 func (r *mutationResolver) PostMessage(ctx context.Context, sender_name string, receiver_name string, message string) (ChatConversation, error) {
 	panic("not implemented")
 }
