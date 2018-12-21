@@ -6,33 +6,16 @@ import (
 	"time"
 )
 
-type Chat struct {
-	ID         string    `json:"id"`
-	SenderID   int       `json:"sender_id"`
-	ReceiverID int       `json:"receiver_id"`
-	Message    string    `json:"message"`
-	CreatedAt  time.Time `json:"createdAt"`
-}
-
-type NewUser struct {
-	Name     string `json:"name"`
-	Email    string `json:"email"`
-	Contact  string `json:"contact"`
-	Password string `json:"password"`
-}
-
-type UpdateUser struct {
-	Name     string `json:"name"`
-	Email    string `json:"email"`
-	Contact  string `json:"contact"`
-	Password string `json:"password"`
+type ChatConversation struct {
+	ID           string    `json:"id"`
+	SenderName   string    `json:"sender_name"`
+	ReceiverName string    `json:"receiver_name"`
+	Message      string    `json:"message"`
+	CreatedAt    time.Time `json:"createdAt"`
 }
 
 type User struct {
 	ID        string    `json:"id"`
 	Name      string    `json:"name"`
-	Email     string    `json:"email"`
-	Contact   string    `json:"contact"`
-	Password  string    `json:"password"`
 	CreatedAt time.Time `json:"createdAt"`
 }

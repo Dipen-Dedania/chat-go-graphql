@@ -1,7 +1,10 @@
 package main
 
-import "github.com/99designs/gqlgen/cmd"
+import (
+	"github.com/aneri/chat-go-graphql/backend/dal"
+)
 
 func main() {
-	cmd.Execute()
+
+	dal.DbConnect()
 }

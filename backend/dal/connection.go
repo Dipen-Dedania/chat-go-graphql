@@ -20,13 +20,13 @@ var instance *DbConnection
 // DbConnect for database connection
 func DbConnect() (*DbConnection, error) {
 	fmt.Println("starting server")
-	config, err := config.LoadConfiguration("config.json")
+	configuration, err := config.LoadConfiguration("config.json")
 	if err != nil {
 		return nil, err
 	}
-	db, err := sql.Open("postgres", fmt.Sprintf("user=%s host=%s port=%s dbname=%s sslmode=disable", config.Cockroach.User, config.Cockroach.Host, config.Cockroach.Port, config.Cockroach.DbName))
+	connectionString := fmt.Sprintf("postgres://%s@%s:%s/%s?sslmode=disable", configuration.Cockroach.User, configuration.Cockroach.Host, configuration.Cockroach.Port, configuration.Cockroach.DbName)
+	db, err := sql.Open("postgres", connectionString)
 	once.Do(func() {
-		fmt.Printf("user=%s host=%s port=%s dbname=%s sslmode=disable", config.Cockroach.User, config.Cockroach.Host, config.Cockroach.Port, config.Cockroach.DbName)
 		if err != nil {
 			log.Fatal("error while initializing database")
 		}
