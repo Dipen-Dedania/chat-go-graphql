@@ -8,7 +8,7 @@ type Subscription {
     userJoined: User!
 }
 type Mutation{
-    userjoin(name: String!, email: String!, contcat: String!): User!
+    userjoin(name: String!, email: String, contact: String): User!
 }
 type Query{
     users: [User!]!

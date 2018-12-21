@@ -41,7 +41,7 @@ type DirectiveRoot struct {
 
 type ComplexityRoot struct {
 	Mutation struct {
-		Userjoin func(childComplexity int, name string, email string, contcat string) int
+		Userjoin func(childComplexity int, name string, email *string, contact *string) int
 	}
 
 	Query struct {
@@ -61,7 +61,7 @@ type ComplexityRoot struct {
 }
 
 type MutationResolver interface {
-	Userjoin(ctx context.Context, name string, email string, contcat string) (User, error)
+	Userjoin(ctx context.Context, name string, email *string, contact *string) (User, error)
 }
 type QueryResolver interface {
 	Users(ctx context.Context) ([]User, error)
@@ -81,24 +81,34 @@ func field_Mutation_userjoin_args(rawArgs map[string]interface{}) (map[string]in
 		}
 	}
 	args["name"] = arg0
-	var arg1 string
+	var arg1 *string
 	if tmp, ok := rawArgs["email"]; ok {
 		var err error
-		arg1, err = graphql.UnmarshalString(tmp)
+		var ptr1 string
+		if tmp != nil {
+			ptr1, err = graphql.UnmarshalString(tmp)
+			arg1 = &ptr1
+		}
+
 		if err != nil {
 			return nil, err
 		}
 	}
 	args["email"] = arg1
-	var arg2 string
-	if tmp, ok := rawArgs["contcat"]; ok {
+	var arg2 *string
+	if tmp, ok := rawArgs["contact"]; ok {
 		var err error
-		arg2, err = graphql.UnmarshalString(tmp)
+		var ptr1 string
+		if tmp != nil {
+			ptr1, err = graphql.UnmarshalString(tmp)
+			arg2 = &ptr1
+		}
+
 		if err != nil {
 			return nil, err
 		}
 	}
-	args["contcat"] = arg2
+	args["contact"] = arg2
 	return args, nil
 
 }
@@ -171,7 +181,7 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 			return 0, false
 		}
 
-		return e.complexity.Mutation.Userjoin(childComplexity, args["name"].(string), args["email"].(string), args["contcat"].(string)), true
+		return e.complexity.Mutation.Userjoin(childComplexity, args["name"].(string), args["email"].(*string), args["contact"].(*string)), true
 
 	case "Query.users":
 		if e.complexity.Query.Users == nil {
@@ -343,7 +353,7 @@ func (ec *executionContext) _Mutation_userjoin(ctx context.Context, field graphq
 	ctx = ec.Tracer.StartFieldResolverExecution(ctx, rctx)
 	resTmp := ec.FieldMiddleware(ctx, nil, func(rctx context.Context) (interface{}, error) {
 		ctx = rctx // use context from middleware stack in children
-		return ec.resolvers.Mutation().Userjoin(rctx, args["name"].(string), args["email"].(string), args["contcat"].(string))
+		return ec.resolvers.Mutation().Userjoin(rctx, args["name"].(string), args["email"].(*string), args["contact"].(*string))
 	})
 	if resTmp == nil {
 		if !ec.HasError(rctx) {
@@ -2209,7 +2219,7 @@ type Subscription {
     userJoined: User!
 }
 type Mutation{
-    userjoin(name: String!, email: String!, contcat: String!): User!
+    userjoin(name: String!, email: String, contact: String): User!
 }
 type Query{
     users: [User!]!

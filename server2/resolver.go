@@ -7,11 +7,11 @@ import (
 	"sync"
 )
 
-type Resolver struct{ *Resolver }
-
 var user map[string]chan User
 var mu sync.Mutex
 var ctxt context.Context
+
+type Resolver struct{}
 
 func (r *Resolver) Mutation() MutationResolver {
 	return &mutationResolver{r}
@@ -35,16 +35,14 @@ func MiddleWareHandler(next http.Handler) http.Handler {
 		next.ServeHTTP(writer, request.WithContext(ctxt))
 	})
 }
-func (r *mutationResolver) Userjoin(ctx context.Context, name string, email string, contact string) (User, error) {
+func (r *mutationResolver) Userjoin(ctx context.Context, name string, email *string, contact *string) (User, error) {
 	// Database connection
 	crConn := ctxt.Value("crConn").(*DbConnection)
 	// create User
 	users := User{
-		Name:    name,
-		Email:   email,
-		Contact: contact,
+		Name: name,
 	}
-	if _, err := crConn.Db.Exec("INSERT INTO training.userchat (name,email,contact) VALUES ($1,$2,$3)", users.Name, users.Email, users.Contact); err != nil {
+	if _, err := crConn.Db.Exec("INSERT INTO training.userchat (name, email, contact) VALUES ($1,$2,$3)", users.Name, "", ""); err != nil {
 		return User{}, err
 	}
 	// Observer new user joined
@@ -79,7 +77,6 @@ func (r *queryResolver) Users(ctx context.Context) ([]User, error) {
 type subscriptionResolver struct{ *Resolver }
 
 func (r *subscriptionResolver) UserJoined(ctx context.Context) (<-chan User, error) {
-
 	id := GetId()
 	events := make(chan User, 1)
 	go func() {
@@ -89,7 +86,6 @@ func (r *subscriptionResolver) UserJoined(ctx context.Context) (<-chan User, err
 	user[id] = events
 	return events, nil
 }
-
 func GetId() string {
 	crConn := ctxt.Value("crConn").(*DbConnection)
 	var user User
