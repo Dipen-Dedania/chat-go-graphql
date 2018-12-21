@@ -5,6 +5,14 @@ import ChatBox from "./ChatBox/ChatBox";
 import UserList from "./UserList/UserList";
 
 export default class Home extends Component {
+  constructor() {
+    super();
+
+    this.state = {
+      chatBoxName: ""
+    };
+  }
+
   render() {
     return (
       <div className="homepage">
@@ -18,7 +26,7 @@ export default class Home extends Component {
             </Col>
           </Row>
 
-          <ChatBox />
+          <ChatBox name={this.state.chatBoxName} />
         </Grid>
       </div>
     );

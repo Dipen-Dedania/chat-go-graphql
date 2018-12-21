@@ -54,8 +54,6 @@ export default class UserList extends Component {
               ));
             }}
           </Query>
-
-          {this.state.userList}
         </div>
       </div>
     );

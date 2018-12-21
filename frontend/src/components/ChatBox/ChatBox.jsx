@@ -38,7 +38,7 @@ export default class ChatBox extends Component {
           style={{ display: this.state.chatDisplay }}
         >
           <div className="chatbox-header">
-            <span className="chat-name">Aneri</span>
+            <span className="chat-name">{this.props.name}</span>
             <span className="chat-close" onClick={this.closeChat}>
               <img src={CloseButton} alt="" />
             </span>
