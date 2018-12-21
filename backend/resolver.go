@@ -18,16 +18,10 @@ func (r *Resolver) Subscription() SubscriptionResolver {
 
 type mutationResolver struct{ *Resolver }
 
-func (r *mutationResolver) CreateUser(ctx context.Context, input NewUser) (User, error) {
+func (r *mutationResolver) JoinUser(ctx context.Context, name string) (User, error) {
 	panic("not implemented")
 }
-func (r *mutationResolver) UpdateUser(ctx context.Context, id string, input UpdateUser) (User, error) {
-	panic("not implemented")
-}
-func (r *mutationResolver) DeleteUSer(ctx context.Context, id string) (User, error) {
-	panic("not implemented")
-}
-func (r *mutationResolver) PostMessage(ctx context.Context, sender_id int, receiver_id int, message string) (Chat, error) {
+func (r *mutationResolver) PostMessage(ctx context.Context, sender_name string, receiver_name string, message string) (ChatConversation, error) {
 	panic("not implemented")
 }
 
@@ -36,12 +30,15 @@ type queryResolver struct{ *Resolver }
 func (r *queryResolver) Users(ctx context.Context) ([]User, error) {
 	panic("not implemented")
 }
-func (r *queryResolver) Chats(ctx context.Context, senderid int, receiverid int) ([]Chat, error) {
+func (r *queryResolver) Chat(ctx context.Context, sender_name string, receiver_name string) ([]ChatConversation, error) {
 	panic("not implemented")
 }
 
 type subscriptionResolver struct{ *Resolver }
 
-func (r *subscriptionResolver) MessagePosted(ctx context.Context) (<-chan Chat, error) {
+func (r *subscriptionResolver) UserJoined(ctx context.Context) (<-chan User, error) {
+	panic("not implemented")
+}
+func (r *subscriptionResolver) MessagePost(ctx context.Context) (<-chan ChatConversation, error) {
 	panic("not implemented")
 }

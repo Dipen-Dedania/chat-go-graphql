@@ -1,41 +1,25 @@
 type User{
     id: ID!
     name: String!
-    email: String!
-    contact: String!
-    password: String!
-    createdAt: Time!
+    createdAt:Time!
 }
-input NewUser{
-    name: String!
-    email: String!
-    contact: String!
-    password: String!
-}
-input UpdateUser{
-    name: String!
-    email: String!
-    contact: String!
-    password: String!
-}
-type Chat{
+type ChatConversation{
     id: ID!
-    sender_id: Int!
-    receiver_id : Int!
+    sender_name: String!
+    receiver_name: String!
     message: String!
-    createdAt: Time!
+    createdAt : Time!
 }
 type Subscription{
-    messagePosted: Chat!
+    userJoined: User!
+    messagePost: ChatConversation!
 }
 type Mutation{
-    createUser(input: NewUser!): User!
-    updateUser(id: ID!, input: UpdateUser!): User!
-    deleteUSer(id: ID!): User!
-    postMessage(sender_id: Int!,receiver_id: Int!,message: String!): Chat!
+    joinUser(name: String!): User!
+    postMessage(sender_name: String!, receiver_name: String!, message: String!): ChatConversation!
 }
 type Query{
     users: [User!]!
-    chats(senderid: Int!, receiverid: Int!): [Chat!]!
+    chat(sender_name: String!, receiver_name: String!): [ChatConversation!]!
 }
 scalar Time
