@@ -7,8 +7,6 @@ import * as serviceWorker from "./serviceWorker";
 // Apollo Files
 import ApolloClient from "apollo-boost";
 import { ApolloProvider } from "react-apollo";
-import { createHttpLink } from "apollo-link-http";
-import { InMemoryCache } from "apollo-cache-inmemory";
 
 const client = new ApolloClient({
   uri: "http://192.168.1.145:9000/query"
