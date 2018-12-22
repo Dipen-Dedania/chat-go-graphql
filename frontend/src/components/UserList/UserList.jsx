@@ -50,7 +50,7 @@ class UserList extends Component {
     return this.props.data.users.map(user => {
       return (
         <SingleUser
-          key={user.id}
+          key={user.name}
           username={user.name}
           callBackProp={this.callBack}
         />
