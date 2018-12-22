@@ -12,7 +12,7 @@ import (
 
 	"github.com/99designs/gqlgen/graphql"
 	"github.com/99designs/gqlgen/graphql/introspection"
-	"github.com/aneri/chat-go-graphql/backend"
+	"github.com/aneri/chat-go-graphql/backend/chatConversation"
 	"github.com/aneri/chat-go-graphql/backend/user"
 	"github.com/vektah/gqlparser"
 	"github.com/vektah/gqlparser/ast"
