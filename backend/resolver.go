@@ -1,8 +1,6 @@
 package backend
 
-import (
-	"context"
-)
+import "context"
 
 type Resolver struct{}
 

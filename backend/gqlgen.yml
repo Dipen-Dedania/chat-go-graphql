@@ -8,7 +8,15 @@ schema:
 exec:
   filename: generated.go
 model:
-  filename: models_gen.go
+  filename: user/userModel.go
+  filename: chatConversation/chatModel.go
+  package: user
+  package: chatConversation
 resolver:
   filename: resolver.go
   type: Resolver
+models:
+  User:
+    model: github.com/aneri/chat-go-graphql/backend/user.User
+  Chat:
+    model: github.com/aneri/chat-go-graphql/backend/chatConversation.Chat
