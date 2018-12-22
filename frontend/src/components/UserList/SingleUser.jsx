@@ -6,18 +6,16 @@ export default class SingleUser extends Component {
     this.state = {
       userSelected: "No User Selected"
     };
-
-    this.startChat = this.startChat.bind(this);
   }
 
-  startChat() {
-    console.log("hello");
-  }
   render() {
     return (
       <div className="item">
         <div className="right floated content">
-          <div className="ui button" onClick={this.startChat}>
+          <div
+            className="ui button"
+            onClick={() => this.props.callBackProp(this.props.username)}
+          >
             Chat
           </div>
         </div>
