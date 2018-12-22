@@ -1,22 +1,13 @@
 package user
 
-import (
-	"context"
-	"log"
+import "math/rand"
 
-	"github.com/aneri/chat-go-graphql/backend/dal"
-)
+var letterRunes = []rune("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ")
 
-var ctxt context.Context
-
-func GetId() string {
-	crConn := ctxt.Value("crConn").(*dal.DbConnection)
-	var user User
-	row, err := crConn.Db.Query("SELECT (id) FROM training.chatuser")
-	if err != nil {
-		log.Fatal("error while fetching id", err)
+func randString(n int) string {
+	b := make([]rune, n)
+	for i := range b {
+		b[i] = letterRunes[rand.Intn(len(letterRunes))]
 	}
-	row.Scan(&user.ID)
-	defer row.Close()
-	return user.ID
+	return string(b)
 }

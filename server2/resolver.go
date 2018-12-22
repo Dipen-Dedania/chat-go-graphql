@@ -3,6 +3,7 @@ package server2
 import (
 	"context"
 	"log"
+	"math/rand"
 	"net/http"
 	"sync"
 )
@@ -77,7 +78,7 @@ func (r *queryResolver) Users(ctx context.Context) ([]User, error) {
 type subscriptionResolver struct{ *Resolver }
 
 func (r *subscriptionResolver) UserJoined(ctx context.Context) (<-chan User, error) {
-	id := GetId()
+	id := randString(8)
 	events := make(chan User, 1)
 	go func() {
 		<-ctx.Done()
@@ -86,14 +87,13 @@ func (r *subscriptionResolver) UserJoined(ctx context.Context) (<-chan User, err
 	user[id] = events
 	return events, nil
 }
-func GetId() string {
-	crConn := ctxt.Value("crConn").(*DbConnection)
-	var user User
-	row, err := crConn.Db.Query("SELECT (id) FROM training.chatuser")
-	if err != nil {
-		log.Fatal("error while fetching id", err)
+
+var letterRunes = []rune("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ")
+
+func randString(n int) string {
+	b := make([]rune, n)
+	for i := range b {
+		b[i] = letterRunes[rand.Intn(len(letterRunes))]
 	}
-	row.Scan(&user.ID)
-	defer row.Close()
-	return user.ID
+	return string(b)
 }
