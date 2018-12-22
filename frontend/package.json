@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "apollo-boost": "^0.1.23",
+    "apollo-link-ws": "^1.0.12",
     "gh-pages": "^2.0.1",
     "graphql": "^14.0.2",
     "graphql-tag": "^2.10.0",
@@ -11,7 +12,8 @@
     "react-apollo": "^2.3.3",
     "react-bootstrap": "^0.32.4",
     "react-dom": "^16.6.3",
-    "react-scripts": "2.1.1"
+    "react-scripts": "2.1.1",
+    "subscriptions-transport-ws": "^0.9.15"
   },
   "scripts": {
     "start": "react-scripts start && npm run watch:sass",

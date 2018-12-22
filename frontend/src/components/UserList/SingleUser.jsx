@@ -1,13 +1,10 @@
+// React Import
 import React, { Component } from "react";
-import UserImg from "../../images/userimg.png";
-export default class SingleUser extends Component {
-  constructor() {
-    super();
-    this.state = {
-      userSelected: "No User Selected"
-    };
-  }
 
+// Profile Image Import
+import UserImg from "../../images/userimg.png";
+
+export default class SingleUser extends Component {
   render() {
     return (
       <div className="item">

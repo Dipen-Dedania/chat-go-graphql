@@ -1,17 +1,23 @@
 import React, { Component } from "react";
+import gql from "graphql-tag";
+import { graphql } from "react-apollo";
 
-export default class SelfName extends Component {
+class SelfName extends Component {
   constructor() {
     super();
     this.state = {
+      // The Entered name
       enterNameDisplay: "",
+      // The Welcome MEssage Name
       welcomeName: "",
+      // Show or Hide Enter Name Box
       welcomeDisplay: "none"
     };
 
     this.nameEntered = this.nameEntered.bind(this);
   }
 
+  //This function is called when the name is entered and we hit enter
   nameEntered(e) {
     if (e.key === "Enter") {
       if (e.target.value === "") {
@@ -22,8 +28,11 @@ export default class SelfName extends Component {
           welcomeDisplay: "",
           enterNameDisplay: "none"
         });
-
-        // CODE TO ADD ENTERED NAME TO USER LIST
+        this.props.mutate({
+          variables: {
+            name: e.target.value
+          }
+        });
       }
     }
   }
@@ -57,3 +66,13 @@ export default class SelfName extends Component {
     );
   }
 }
+
+const mutation = gql`
+  mutation AddName($name: String!) {
+    userjoin(name: $name) {
+      name
+    }
+  }
+`;
+
+export default graphql(mutation)(SelfName);
