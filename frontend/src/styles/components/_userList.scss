@@ -1,0 +1,36 @@
+.userList {
+  padding-top: 90px;
+  .viewUsers {
+    text-align: right;
+
+    .button {
+      background: rgb(32, 231, 42);
+      color: white;
+    }
+  }
+
+  .list {
+    height: 300px;
+    width: 200px;
+    color: white;
+    float: right;
+    margin-top: 20px !important;
+    overflow: auto;
+  }
+
+  @media only screen and (max-width: 759px) {
+    .list {
+      float: none;
+      margin: 0 auto !important;
+    }
+    .viewUsers {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+  }
+}
+@media only screen and (max-width: 759px) {
+  .userList {
+    padding-top: 20px;
+  }
+}

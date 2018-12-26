@@ -1,0 +1,11 @@
+// -----------------------------------------------------------------------------
+// This file contains styles that are specific to the home page.
+// -----------------------------------------------------------------------------
+.homepage {
+  height: 100vh;
+  width: 100vw;
+  background-image: linear-gradient(rgba(0, 0, 0, 0.808), rgba(0, 0, 0, 0.801)),
+    url(../images/background.jpg);
+  background-size: cover;
+  background-attachment: fixed;
+}

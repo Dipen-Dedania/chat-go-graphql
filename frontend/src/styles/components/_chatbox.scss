@@ -1,0 +1,90 @@
+/* Button used to open the chat form - fixed at the bottom of the page */
+.chatbox {
+  position: fixed;
+  bottom: 0;
+  left: 15px;
+  height: 350px;
+  width: 300px;
+
+  .open-button {
+    background-color: #555;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+    opacity: 0.8;
+    position: fixed;
+    bottom: 23px;
+    left: 28px;
+    width: 280px;
+    border-radius: 30px;
+    outline: 0;
+  }
+
+  .chat-popup {
+    width: 100%;
+    position: fixed;
+    bottom: 0;
+    left: 15px;
+    border: 3px solid #f1f1f1;
+    height: 350px;
+    max-width: 300px;
+
+    background: white;
+
+    .chatbox-header {
+      height: 9%;
+      background: white;
+      padding: 4px;
+
+      .chat-name {
+        color: #f44336;
+        font-weight: bold;
+        font-size: 15px;
+      }
+
+      .chat-close {
+        float: right;
+        cursor: pointer;
+      }
+    }
+
+    .chatbox-message-area {
+      height: 83%;
+      background: #c8c8c8;
+      border-top-left-radius: 8px;
+      border-top-right-radius: 8px;
+      padding-top: 5px;
+      padding-left: 5px;
+    }
+    .chatbox-footer {
+      height: 8%;
+      position: relative;
+
+      input {
+        border: none;
+        width: 100%;
+        height: 100%;
+        padding: 8px;
+        border-radius: 20px;
+        font-size: 15px;
+        padding-right: 30px;
+      }
+      .send-msg {
+        position: absolute;
+        right: 0;
+        width: 27px;
+        height: 100%;
+        border-radius: 20px;
+        padding: 0px;
+        border: 0px;
+        outline: 0;
+        background: transparent;
+
+        img {
+          width: 25px;
+        }
+      }
+    }
+  }
+}

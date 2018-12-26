@@ -1,0 +1,18 @@
+# .gqlgen.yml example
+#
+# Refer to https://gqlgen.com/config/
+# for detailed .gqlgen.yml documentation.
+
+schema:
+- schema.graphql
+exec:
+  filename: graph/generated.go
+  package: graph
+resolver:
+  filename: resolver.go
+  type: Resolver
+models: 
+  User:
+    model: github.com/aneri/chat-go-graphql/backend/user.User
+  Chat:
+    model: github.com/aneri/chat-go-graphql/backend/chatConversation.Chat
