@@ -1,6 +1,14 @@
 import React, { Component } from "react";
-import gql from "graphql-tag";
+import { gql } from "apollo-boost";
 import { graphql } from "react-apollo";
+
+const mutation = gql`
+  mutation AddName($name: String!) {
+    userjoin(name: $name) {
+      name
+    }
+  }
+`;
 
 class SelfName extends Component {
   constructor() {
@@ -8,10 +16,10 @@ class SelfName extends Component {
     this.state = {
       // The Entered name
       enterNameDisplay: "",
-      // The Welcome MEssage Name
-      welcomeName: "",
       // Show or Hide Enter Name Box
-      welcomeDisplay: "none"
+      welcomeDisplay: "none",
+      // The Welcome Message Name
+      welcomeName: ""
     };
 
     this.nameEntered = this.nameEntered.bind(this);
@@ -33,6 +41,7 @@ class SelfName extends Component {
             name: e.target.value
           }
         });
+        this.props.success("flag");
       }
     }
   }
@@ -66,13 +75,5 @@ class SelfName extends Component {
     );
   }
 }
-
-const mutation = gql`
-  mutation AddName($name: String!) {
-    userjoin(name: $name) {
-      name
-    }
-  }
-`;
 
 export default graphql(mutation)(SelfName);

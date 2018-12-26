@@ -3,25 +3,37 @@ import CloseButton from "../../images/close-button.png";
 import SendButton from "../../images/send.png";
 
 export default class ChatBox extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
-      chatDisplay: "none"
+      chatDisplay: false
     };
 
     this.showChat = this.showChat.bind(this);
     this.closeChat = this.closeChat.bind(this);
   }
+
   showChat() {
     this.setState({
-      chatDisplay: ""
+      chatDisplay: true
     });
   }
   closeChat() {
     this.setState({
-      chatDisplay: "none"
+      chatDisplay: false
     });
   }
+
+  // static getDerivedStateFromProps(props, state) {
+  //   if (state.chatDisplay !== props.chatDisplay) {
+  //     return {
+  //       derivedValue: props.chatDisplay,
+  //       mirroredProp: props.chatDisplay
+  //     };
+  //   }
+  //   // when null is returned no update is made to the state
+  //   return null;
+  // }
 
   render() {
     return (
@@ -35,7 +47,7 @@ export default class ChatBox extends Component {
         <div
           className="chat-popup"
           id="myChat"
-          style={{ display: this.state.chatDisplay }}
+          style={{ display: this.state.chatDisplay === false ? "none" : "" }}
         >
           <div className="chatbox-header">
             <span className="chat-name">{this.props.name}</span>

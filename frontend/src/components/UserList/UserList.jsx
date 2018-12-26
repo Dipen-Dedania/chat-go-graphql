@@ -1,15 +1,15 @@
 import React, { Component } from "react";
 
-// GraphQL
+//GraphQL
+import { Query } from "react-apollo";
 import gql from "graphql-tag";
-import { graphql } from "react-apollo";
 
 //Components Import
 import ChatBox from "../ChatBox/ChatBox";
 import SingleUser from "./SingleUser";
 
 // Query
-const query = gql`
+const USER_LIST = gql`
   {
     users {
       name
@@ -18,15 +18,17 @@ const query = gql`
 `;
 
 class UserList extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       userListDisplay: "none",
-      userSelected: ""
+      userSelected: "",
+      refresh: props.refresh
     };
 
     this.toggleUserList = this.toggleUserList.bind(this);
     this.callBack = this.callBack.bind(this);
+    console.log("Hello");
   }
 
   toggleUserList() {
@@ -34,27 +36,12 @@ class UserList extends Component {
     this.setState({
       userListDisplay: userListDisplay
     });
+    console.log(this.state.refresh);
   }
 
   callBack(userToChatWith) {
     this.setState({
       userSelected: userToChatWith
-    });
-  }
-
-  renderUserList() {
-    if (this.props.data.loading) {
-      return <div>Loading...</div>;
-    }
-
-    return this.props.data.users.map(user => {
-      return (
-        <SingleUser
-          key={user.name}
-          username={user.name}
-          callBackProp={this.callBack}
-        />
-      );
     });
   }
 
@@ -72,7 +59,24 @@ class UserList extends Component {
             className="ui middle aligned divided list"
             style={{ display: this.state.userListDisplay }}
           >
-            {this.renderUserList()}
+            <Query query={USER_LIST}>
+              {({ loading, error, data }) => {
+                if (loading) return <div>Loading...</div>;
+                if (error) return <div>Error</div>;
+
+                const userList = data.users;
+
+                return userList.map(user => {
+                  return (
+                    <SingleUser
+                      key={user.name}
+                      username={user.name}
+                      callBackProp={this.callBack}
+                    />
+                  );
+                });
+              }}
+            </Query>
           </div>
         </div>
         <ChatBox name={this.state.userSelected} />
@@ -81,4 +85,4 @@ class UserList extends Component {
   }
 }
 
-export default graphql(query)(UserList);
+export default UserList;
