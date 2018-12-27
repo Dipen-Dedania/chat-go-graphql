@@ -17,7 +17,12 @@ export default class SingleUser extends Component {
           </div>
         </div>
         <img className="ui avatar image" src={UserImg} alt="Profile Pic" />
-        <div className="content">{this.props.username}</div>
+        <div
+          className="content"
+          style={{ width: "30%", overflow: "hidden", height: "17px" }}
+        >
+          {this.props.username}
+        </div>
       </div>
     );
   }

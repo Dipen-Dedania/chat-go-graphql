@@ -12,30 +12,39 @@ export default class Home extends Component {
   constructor() {
     super();
     this.state = {
-      success: false
+      userList: "",
+      welcomeName: ""
     };
-    this.success = this.success.bind(this);
+    this.displayList = this.displayList.bind(this);
   }
 
-  success(flag) {
-    console.log(flag);
-    this.setState({
-      success: true
-    });
+  displayList(welcomeName) {
+    if (welcomeName) {
+      this.setState(
+        {
+          welcomeName: welcomeName
+        },
+        () => {
+          this.setState({
+            userList: <UserList welcomeName={this.state.welcomeName} />
+          });
+        }
+      );
+    }
   }
+
   render() {
-    console.log(this.state.success);
     return (
       <div className="homepage">
         <Grid>
           <Row>
             <Col xs={12} sm={6} md={6}>
               {/* Enter Your Name Component */}
-              <SelfName success={this.success} />
+              <SelfName displayList={this.displayList} />
             </Col>
             <Col xs={12} sm={6} md={6}>
               {/* Users Online Components */}
-              <UserList />
+              {this.state.userList}
             </Col>
           </Row>
         </Grid>
