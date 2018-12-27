@@ -6,7 +6,7 @@ import (
 	"log"
 	"sync"
 
-	"github.com/aneri/chat-go-graphql/backend/dal/config"
+	"github.com/aneri/chat-go-graphql/backend2/dal/config"
 	_ "github.com/lib/pq"
 )
 

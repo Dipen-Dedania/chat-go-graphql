@@ -46,6 +46,7 @@ func (r *mutationResolver) Userjoin(ctx context.Context, name string, email *str
 	if _, err := crConn.Db.Exec("INSERT INTO training.userchat (name, email, contact) VALUES ($1,$2,$3)", users.Name, "", ""); err != nil {
 		return User{}, err
 	}
+	defer crConn.Db.Close()
 	// Observer new user joined
 	for _, observe := range user {
 		observe <- users
