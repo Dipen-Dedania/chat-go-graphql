@@ -1,25 +1,25 @@
 type User{
     id: ID!
     name: String!
-    createdAt:Time!
+    createdAt: Time!
 }
-type ChatConversation{
+type Chatconversation{
     id: ID!
     sender_name: String!
     receiver_name: String!
     message: String!
-    createdAt : Time!
+    createdAt: Time!
 }
 type Subscription{
-    userJoined: User!
-    messagePost: ChatConversation!
+    userjoined: User!
+    messagePosted(id: String!): Chatconversation!
 }
 type Mutation{
+    postMessage(sender_name: String!, receiver_name: String!, message: String!): Chatconversation!
     joinUser(name: String!): User!
-    postMessage(sender_name: String!, receiver_name: String!, message: String!): ChatConversation!
 }
 type Query{
     users: [User!]!
-    chat(sender_name: String!, receiver_name: String!): [ChatConversation!]!
+    chats(sender_name: String!,receiver_name: String!): [Chatconversation!]!
 }
 scalar Time

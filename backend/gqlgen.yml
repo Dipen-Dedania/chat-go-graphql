@@ -6,13 +6,9 @@
 schema:
 - schema.graphql
 exec:
-  filename: graph/generated.go
-  package: graph
+  filename: generated.go
+model:
+  filename: models_gen.go
 resolver:
   filename: resolver.go
   type: Resolver
-models: 
-  User:
-    model: github.com/aneri/chat-go-graphql/backend/user.User
-  Chat:
-    model: github.com/aneri/chat-go-graphql/backend/chatConversation.Chat

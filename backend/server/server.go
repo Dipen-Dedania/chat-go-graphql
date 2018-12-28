@@ -1,20 +1,14 @@
 package main
 
 import (
-	"fmt"
 	"log"
 	"net/http"
 	"os"
 
-	"github.com/aneri/chat-go-graphql/backend/chatConversation"
-	"github.com/aneri/chat-go-graphql/backend/dal"
-	"github.com/aneri/chat-go-graphql/backend/graph"
-	"github.com/aneri/chat-go-graphql/backend/user"
-
+	"github.com/99designs/gqlgen/handler"
+	"github.com/aneri/chat-go-graphql/backend"
 	"github.com/gorilla/mux"
 	"github.com/gorilla/websocket"
-
-	"github.com/99designs/gqlgen/handler"
 )
 
 const defaultPort = "8080"
@@ -24,19 +18,11 @@ func main() {
 	if port == "" {
 		port = defaultPort
 	}
-	db, err := dal.DbConnect()
-	fmt.Println(db, err)
 	router := mux.NewRouter()
-	router.Handle("/", handler.Playground("GraphQL playground", "/user"))
+	router.Use(backend.MiddleWareHandler)
+	router.Handle("/", handler.Playground("GraphQL playground", "/query"))
 
-	router.Handle("/user", corsAccess(handler.GraphQL(graph.NewExecutableSchema(graph.Config{Resolvers: &user.Resolver{}}),
-		handler.WebsocketUpgrader(websocket.Upgrader{
-			CheckOrigin: func(request *http.Request) bool {
-				return true
-			},
-		}),
-	)))
-	router.Handle("/chat", corsAccess(handler.GraphQL(graph.NewExecutableSchema(graph.Config{Resolvers: &chatConversation.Resolver{}}),
+	router.Handle("/query", corsAccess(handler.GraphQL(backend.NewExecutableSchema(backend.Config{Resolvers: &backend.Resolver{}}),
 		handler.WebsocketUpgrader(websocket.Upgrader{
 			CheckOrigin: func(request *http.Request) bool {
 				return true
@@ -44,7 +30,6 @@ func main() {
 		}),
 	)))
 	log.Printf("connect to http://localhost:%s/ for GraphQL playground", port)
-
 	log.Fatal(http.ListenAndServe(":"+port, router))
 }
 func corsAccess(next http.HandlerFunc) http.HandlerFunc {

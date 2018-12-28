@@ -1,10 +1,11 @@
-import React, { Component } from "react";
-import { gql } from "apollo-boost";
+import React, { Component } from "react"; //React
+
+import { gql } from "apollo-boost"; //GraphQL
 import { graphql } from "react-apollo";
 
 const mutation = gql`
-  mutation AddName($name: String!) {
-    userjoin(name: $name) {
+  mutation adduser($name: String!) {
+    joinUser(name: $name) {
       name
     }
   }
@@ -30,18 +31,24 @@ class SelfName extends Component {
     if (e.key === "Enter") {
       if (e.target.value === "") {
         alert("Please Enter a Name");
+      } else if (e.target.value.length > 10) {
+        alert("Please Enter a Name between 1-10 Character");
       } else {
-        this.setState({
-          welcomeName: e.target.value,
-          welcomeDisplay: "",
-          enterNameDisplay: "none"
-        });
+        this.setState(
+          {
+            welcomeName: e.target.value,
+            welcomeDisplay: "",
+            enterNameDisplay: "none"
+          },
+          () => {
+            this.props.displayList(this.state.welcomeName);
+          }
+        );
         this.props.mutate({
           variables: {
             name: e.target.value
           }
         });
-        this.props.success("flag");
       }
     }
   }

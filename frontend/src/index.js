@@ -4,17 +4,43 @@ import App from "./App";
 import * as serviceWorker from "./serviceWorker";
 import "./styles/main.css";
 
-import ApolloClient from "apollo-boost"; //Apollo GraphQL Client
+//Default for Query and Mutation
 import { ApolloProvider } from "react-apollo";
+import { ApolloClient } from "apollo-client";
+import { HttpLink } from "apollo-link-http";
+import { InMemoryCache } from "apollo-cache-inmemory";
 
-// import { createHttpLink } from "apollo-link-http";
-// import { InMemoryCache } from "apollo-cache-inmemory";
-// import { split } from "apollo-link";
-// import { WebSocketLink } from "apollo-link-ws";
-// import { getMainDefinition } from "apollo-utilities";
+//For Subscription
+import { WebSocketLink } from "apollo-link-ws";
+import { ApolloLink, split } from "apollo-link";
+import { getMainDefinition } from "apollo-utilities";
+
+const httpLink = new HttpLink({
+  uri: "http://192.168.1.145:8080/query"
+});
+
+const wsLink = new WebSocketLink({
+  uri: `ws://192.168.1.145:8080/query`,
+  options: {
+    reconnect: true
+  }
+});
+
+const terminatingLink = split(
+  ({ query }) => {
+    const { kind, operation } = getMainDefinition(query);
+    return kind === "OperationDefinition" && operation === "subscription";
+  },
+  wsLink,
+  httpLink
+);
+
+const cache = new InMemoryCache();
+const link = ApolloLink.from([terminatingLink]);
 
 const client = new ApolloClient({
-  uri: "http://192.168.1.145:9000/query"
+  link,
+  cache
 });
 
 ReactDOM.render(
