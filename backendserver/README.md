@@ -11,8 +11,16 @@
 7. Create database : create database dbname;(here I took chatApp)
 8. Show database : show datbases;
 9. Clone repo in gopath src folder (Can't run outside gopath because gqlgen not support outside gopath)
-10. Install gqlgen (go get -u github.com/99designs/gqlgen) [I use gqlgen 1.0 beta version]
-11. If there is a new vesrion of gqlgen than do (gqlgen -v) 
+10. Install cockroachdb driver in go (go get github.com/lib/pq) for cockroachdb driver
+11. Install gorilla mux (go get github.com/gorilla/mux)
+12. Install gqlgen (go get -u github.com/99designs/gqlgen) [I use gqlgen 1.0 beta version]
+13. If there is a new vesrion of gqlgen than do (gqlgen -v) it will generate generated.go file,resolver.go file and models_gen.go file as per new version
+
+## Package used
+
+1. github.com/gorilla/mux  = As router carry handler request
+2. github.com/lib/pq       = For cockroachdb
+3. github.com/gorilla/websocket = 
 
 ## Folder structure of server side
 
