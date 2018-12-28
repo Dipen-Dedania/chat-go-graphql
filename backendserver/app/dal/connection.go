@@ -4,9 +4,9 @@ import (
 	"database/sql"
 	"fmt"
 	"log"
+
 	"sync"
 
-	"github.com/aneri/chat-go-graphql/backend/dal/config"
 	_ "github.com/lib/pq"
 )
 
@@ -20,14 +20,15 @@ var instance *DbConnection
 
 // DbConnect for database connection
 func DbConnect() (*DbConnection, error) {
-	fmt.Println("starting server")
-	configuration, err := config.LoadConfiguration("dal/config.json")
-	if err != nil {
-		return nil, err
-	}
-	connectionString := fmt.Sprintf("postgresql://%s@%s:%s/%s?sslmode=disable", configuration.Cockroach.User, configuration.Cockroach.Host, configuration.Cockroach.Port, configuration.Cockroach.DbName)
-	db, err := sql.Open("postgres", connectionString)
+
 	once.Do(func() {
+		fmt.Println("starting server")
+		configuration, err := LoadConfiguration("app/dal/config.json")
+		if err != nil {
+			log.Fatal("Error while starting server", err)
+		}
+		connectionString := fmt.Sprintf("postgresql://%s@%s:%s/%s?sslmode=disable", configuration.Cockroach.User, configuration.Cockroach.Host, configuration.Cockroach.Port, configuration.Cockroach.DbName)
+		db, err := sql.Open("postgres", connectionString)
 		if err != nil {
 			log.Fatal("error while initializing database", err)
 		}
@@ -42,5 +43,5 @@ func DbConnect() (*DbConnection, error) {
 			log.Fatal("error while creating chat table", err)
 		}
 	})
-	return instance, err
+	return instance, nil
 }
