@@ -18,7 +18,7 @@ export default class SentChat extends Component {
                   </a>
                 </div>
                 <div className="message">
-                  <div className="text">How dsadasd!</div>
+                  <div className="text">{this.props.inputMessage}</div>
                 </div>
               </div>
               <div className="sent-image">

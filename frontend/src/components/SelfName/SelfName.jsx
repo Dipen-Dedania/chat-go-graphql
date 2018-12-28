@@ -1,11 +1,21 @@
 import React, { Component } from "react"; //React
 
 import { gql } from "apollo-boost"; //GraphQL
-import { graphql } from "react-apollo";
+import { graphql, compose } from "react-apollo";
+import { check } from "graphql-anywhere";
 
 const mutation = gql`
   mutation adduser($name: String!) {
     joinUser(name: $name) {
+      name
+    }
+  }
+`;
+
+// Query
+const query = gql`
+  {
+    users {
       name
     }
   }
@@ -24,6 +34,7 @@ class SelfName extends Component {
     };
 
     this.nameEntered = this.nameEntered.bind(this);
+    this.checkList = this.checkList.bind(this);
   }
 
   //This function is called when the name is entered and we hit enter
@@ -33,6 +44,8 @@ class SelfName extends Component {
         alert("Please Enter a Name");
       } else if (e.target.value.length > 10) {
         alert("Please Enter a Name between 1-10 Character");
+      } else if (this.checkList(e.target.value)) {
+        alert("User Already Exist");
       } else {
         this.setState(
           {
@@ -51,6 +64,12 @@ class SelfName extends Component {
         });
       }
     }
+  }
+
+  checkList(nameToCompare) {
+    return (
+      this.props.data.users.filter(obj => obj.name === nameToCompare).length > 0
+    );
   }
 
   render() {
@@ -83,4 +102,7 @@ class SelfName extends Component {
   }
 }
 
-export default graphql(mutation)(SelfName);
+export default compose(
+  graphql(mutation),
+  graphql(query)
+)(SelfName);
