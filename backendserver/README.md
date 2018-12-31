@@ -127,4 +127,4 @@
 
 
 
-@here, [You can find frontend code] (https://github.com/AkhilxNair/chat-go-graphql/tree/master/frontend)
+@here, [You can find frontend source code](https://github.com/AkhilxNair/chat-go-graphql/tree/master/frontend)
