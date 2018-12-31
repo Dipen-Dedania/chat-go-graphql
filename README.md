@@ -3,7 +3,7 @@
 - [React](https://reactjs.org/): Frontend framework for building user interfaces
 - [Apllo Client](https://github.com/apollographql/apollo-client): Fully-featured, production ready caching GraphQL client
 - [Golang](https://golang.org/): Use for backend 
-- [Gorilla]:(http://www.gorillatoolkit.org/): Framework for golang
+- [Gorilla](http://www.gorillatoolkit.org/): Framework for golang
 
 ## Getting started
 
