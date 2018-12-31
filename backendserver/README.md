@@ -20,7 +20,9 @@
 
 1. github.com/gorilla/mux  = As router carry handler request
 2. github.com/lib/pq       = For cockroachdb
-3. github.com/gorilla/websocket = 
+3. github.com/gorilla/websocket = For handling socket 
+4. github.com/99designs/gqlgen = Graphql library 
+5. github.com/99designs/gqlgen/handler
 
 ## Folder structure of server side
 
@@ -42,3 +44,8 @@
         |     |--server.go                  // main execution file
         |--- gqlgen.yml                     // Show all mapping
         |--- schema.graphql                 // Schema for chat app
+
+## Databse 
+
+    ~ This example auto generate tables .
+    ~ Create tables as per configuration. [You can find my database configuration file here.](https://github.com/AkhilxNair/chat-go-graphql/blob/master/backendserver/app/dal/config.json)
