@@ -62,10 +62,11 @@
 ### Getting started
 
 1. go run server/server.go
-    (It 'll start server)
-2. Can test services backendside using graphql playground
+       (It 'll start server)
+2. Open  http://localhost:8080/ and run below queries
+3. Can test services backendside using graphql playground
 
-    2(a): Real time add user listen
+    3(a): Real time add user listen
     ```
             subscription realtimeUseradd{
             userjoined{
@@ -73,7 +74,7 @@
             }
         }
     ```
-    2(b): AddUser
+    3(b): AddUser
     ```
             mutation adduser($name: String!){
                 joinUser(name: $name){
@@ -81,7 +82,7 @@
                 }
             }
     ```
-    2(c): Userlist
+    3(c): Userlist
     ```      
             query userlist{
             users{
@@ -91,7 +92,7 @@
             }
         }
     ```
-    2(d): RealTime chat listen
+    3(d): RealTime chat listen
     ```
             subscription realtimechat($id: String!){
             messagePosted(id: $id){
@@ -102,7 +103,7 @@
             }
         }
     ```
-    2(e): Chat conversation
+    3(e): Chat conversation
     ```
             mutation addMessage($sender_name: String!,$receiver_name: String!,$message: String!){
             postMessage(sender_name: $sender_name,receiver_name: $receiver_name,message: $message){
@@ -112,7 +113,7 @@
             }
         }
     ```
-    2(f): Retrive chatconversation between two users
+    3(f): Retrive chatconversation between two users
     ```
             query allchats($sender_name: String!,$receiver_name: String!){
             chats(sender_name: $sender_name,receiver_name: $receiver_name){
@@ -124,3 +125,6 @@
         }
     ```
 
+###### 
+
+@here, [You can find frontend code] (https://github.com/AkhilxNair/chat-go-graphql/tree/master/frontend)
