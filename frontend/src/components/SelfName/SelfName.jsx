@@ -2,7 +2,6 @@ import React, { Component } from "react"; //React
 
 import { gql } from "apollo-boost"; //GraphQL
 import { graphql, compose } from "react-apollo";
-import { check } from "graphql-anywhere";
 
 const mutation = gql`
   mutation adduser($name: String!) {
@@ -30,7 +29,8 @@ class SelfName extends Component {
       // Show or Hide Enter Name Box
       welcomeDisplay: "none",
       // The Welcome Message Name
-      welcomeName: ""
+      welcomeName: "",
+      userAlreadyExist: false
     };
 
     this.nameEntered = this.nameEntered.bind(this);
@@ -44,8 +44,6 @@ class SelfName extends Component {
         alert("Please Enter a Name");
       } else if (e.target.value.length > 10) {
         alert("Please Enter a Name between 1-10 Character");
-      } else if (this.checkList(e.target.value)) {
-        alert("User Already Exist");
       } else {
         this.setState(
           {
@@ -62,6 +60,11 @@ class SelfName extends Component {
             name: e.target.value
           }
         });
+        if (this.checkList(e.target.value)) {
+          this.setState({
+            userAlreadyExist: true
+          });
+        }
       }
     }
   }
@@ -70,6 +73,13 @@ class SelfName extends Component {
     return (
       this.props.data.users.filter(obj => obj.name === nameToCompare).length > 0
     );
+  }
+  welcomeName() {
+    if (this.state.userAlreadyExist) {
+      return <span>Welcome Back, {this.state.welcomeName} :)</span>;
+    } else {
+      return <span>Welcome, {this.state.welcomeName}</span>;
+    }
   }
 
   render() {
@@ -95,7 +105,7 @@ class SelfName extends Component {
             display: this.state.welcomeDisplay
           }}
         >
-          Welcome, {this.state.welcomeName}
+          {this.welcomeName()}
         </div>
       </div>
     );

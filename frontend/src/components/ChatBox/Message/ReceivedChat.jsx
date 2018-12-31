@@ -17,7 +17,7 @@ export default class ReceivedChat extends Component {
               <div className="metadata">
                 <span className="date">Today at 5:42PM</span>
               </div>
-              <div className="text">How artistic!</div>
+              <div className="text">{this.props.receivedMessage}</div>
             </div>
           </div>
         </div>

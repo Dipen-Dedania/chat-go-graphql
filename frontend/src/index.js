@@ -12,7 +12,7 @@ import { InMemoryCache } from "apollo-cache-inmemory";
 
 //For Subscription
 import { WebSocketLink } from "apollo-link-ws";
-import { ApolloLink, split } from "apollo-link";
+import { split } from "apollo-link";
 import { getMainDefinition } from "apollo-utilities";
 
 const httpLink = new HttpLink({
@@ -26,7 +26,7 @@ const wsLink = new WebSocketLink({
   }
 });
 
-const terminatingLink = split(
+const link = split(
   ({ query }) => {
     const { kind, operation } = getMainDefinition(query);
     return kind === "OperationDefinition" && operation === "subscription";
@@ -35,12 +35,9 @@ const terminatingLink = split(
   httpLink
 );
 
-const cache = new InMemoryCache();
-const link = ApolloLink.from([terminatingLink]);
-
 const client = new ApolloClient({
   link,
-  cache
+  cache: new InMemoryCache()
 });
 
 ReactDOM.render(
