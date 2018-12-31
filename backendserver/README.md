@@ -47,6 +47,6 @@
 
 ## Databse 
 
-~ This example auto generate tables .
-~ Create tables as per configuration. 
+- This example auto generate tables.
+- Create tables as per configuration. 
     [You can find my database configuration file here](https://github.com/AkhilxNair/chat-go-graphql/blob/master/backendserver/app/dal/config.json)
