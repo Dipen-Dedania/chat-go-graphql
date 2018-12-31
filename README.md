@@ -15,10 +15,11 @@
 
 - Start server 
         ```
-        step1 : cd backendserver
-        step2 : go run server/server.go
-        step3 : cd frontend
-        step4 : npm insatll
-        step5 : npm start
-        step6: Run on localhost
+        - step1 : cd backendserver
+        - step2 : go run server/server.go
+        - step3 : cd frontend
+        - step4 : npm insatll
+        - step5 : npm start
+        - step6: Run on localhost
+        
         ```
