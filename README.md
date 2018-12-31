@@ -14,12 +14,17 @@
 ### Run application
 
 - Start server 
-        ```
-        - step1 : cd backendserver
-        - step2 : go run server/server.go
+```
+         step1 : cd backendserver
+         step2 : go run server/server.go
+```
+- Start npm 
+```
         - step3 : cd frontend
         - step4 : npm insatll
         - step5 : npm start
+```
+- Run
+```
         - step6: Run on localhost
-        
-        ```
+```
