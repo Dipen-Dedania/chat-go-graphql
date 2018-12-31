@@ -45,8 +45,82 @@
         |--- gqlgen.yml                     // Show all mapping
         |--- schema.graphql                 // Schema for chat app
 
-## Databse 
+## Database 
 
 - This example auto generate tables.
 - Create tables as per configuration. 
     [You can find my database configuration file here](https://github.com/AkhilxNair/chat-go-graphql/blob/master/backendserver/app/dal/config.json)
+- Change configuration as per your db 
+
+### Features
+
+1. Add user
+2. Retrive user
+3. Realtime add user
+4. Realtime chatconversation
+
+### Getting started
+
+1. go run server/server.go
+    (It 'll start server)
+2. Can test services backendside using graphql playground
+
+    2(a): Real time add user listen
+    ```
+            subscription realtimeUseradd{
+            userjoined{
+                name
+            }
+        }
+    ```
+    2(b): AddUser
+    ```
+            mutation adduser($name: String!){
+                joinUser(name: $name){
+                    name
+                }
+            }
+    ```
+    2(c): Userlist
+    ```      
+            query userlist{
+            users{
+                id
+                name
+                createdAt
+            }
+        }
+    ```
+    2(d): RealTime chat listen
+    ```
+            subscription realtimechat($id: String!){
+            messagePosted(id: $id){
+                sender_name
+                receiver_name
+                message
+                createdAt
+            }
+        }
+    ```
+    2(e): Chat conversation
+    ```
+            mutation addMessage($sender_name: String!,$receiver_name: String!,$message: String!){
+            postMessage(sender_name: $sender_name,receiver_name: $receiver_name,message: $message){
+                sender_name
+                receiver_name
+                message
+            }
+        }
+    ```
+    2(f): Retrive chatconversation between two users
+    ```
+            query allchats($sender_name: String!,$receiver_name: String!){
+            chats(sender_name: $sender_name,receiver_name: $receiver_name){
+                sender_name
+                receiver_name
+                message
+                createdAt
+            }
+        }
+    ```
+
