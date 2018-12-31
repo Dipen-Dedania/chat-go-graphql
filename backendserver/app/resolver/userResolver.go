@@ -2,6 +2,7 @@ package resolver
 
 import (
 	"context"
+	"log"
 
 	"github.com/aneri/chat-go-graphql/backendserver/app/dal"
 	"github.com/aneri/chat-go-graphql/backendserver/app/model"
@@ -26,7 +27,7 @@ func (r *queryResolver) Users(ctx context.Context) ([]model.User, error) {
 	for rows.Next() {
 		err := rows.Scan(&user.ID, &user.Name, &user.CreatedAt)
 		if err != nil {
-			panic(err.Error())
+			log.Print("Error in scanning data of users", err)
 		}
 		arrusers = append(arrusers, user)
 	}
@@ -35,12 +36,24 @@ func (r *queryResolver) Users(ctx context.Context) ([]model.User, error) {
 }
 func (r *mutationResolver) JoinUser(ctx context.Context, name string) (model.User, error) {
 	crConn := ctxt.Value("crConn").(*dal.DbConnection)
-	_, err := crConn.Db.Exec("INSERT INTO userdata (name, createdat) VALUES ($1, NOW())", name)
-	if err != nil {
-		panic(err.Error())
-	}
 	users := model.User{
 		Name: name,
+	}
+	row, err := crConn.Db.Query("SELECT name FROM userdata WHERE name=$1", name)
+	if err != nil {
+		log.Print("Error while scanning name")
+	}
+	for row.Next() {
+		err := row.Scan(&users.Name)
+		if err != nil {
+			log.Print(err)
+		}
+	}
+	if users.Name != "" {
+		_, err := crConn.Db.Exec("INSERT INTO userdata (name, createdat) VALUES ($1, NOW())", name)
+		if err != nil {
+			log.Print("Error while inserting data", err)
+		}
 	}
 	//add new user in observer
 	for _, observer := range addUserChannel {

@@ -22,7 +22,7 @@ func (r *queryResolver) Chats(ctx context.Context, sender_name string, receiver_
 	crConn := ctxt.Value("crConn").(*dal.DbConnection)
 	rows, err := crConn.Db.Query("SELECT id,sender_name,receiver_name,message,createdat FROM chatconversation WHERE sender_name IN ($1,$2) and receiver_name IN ($1,$2) ORDER BY createdat", sender_name, receiver_name)
 	if err != nil {
-		log.Fatal("Error while retrieving chat data", err)
+		log.Print("Error to scan chat conversation", err)
 	}
 	for rows.Next() {
 		err := rows.Scan(&chat.ID, &chat.SenderName, &chat.ReceiverName, &chat.Message, &chat.CreatedAt)
@@ -38,7 +38,7 @@ func (r *queryResolver) Chats(ctx context.Context, sender_name string, receiver_
 func (r *mutationResolver) PostMessage(ctx context.Context, sender_name string, receiver_name string, message string) (model.Chatconversation, error) {
 	crConn := ctxt.Value("crConn").(*dal.DbConnection)
 	if _, err := crConn.Db.Exec("INSERT INTO chatconversation (sender_name, receiver_name, message, createdat) VALUES ($1,$2,$3,NOW())", sender_name, receiver_name, message); err != nil {
-		log.Fatal("Error while inserting data in chat table", err)
+		log.Print("Can not insert data in chatconversation", err)
 	}
 	chats := model.Chatconversation{
 		ReceiverName: receiver_name,
