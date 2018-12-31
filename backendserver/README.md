@@ -125,6 +125,6 @@
         }
     ```
 
-###### 
+
 
 @here, [You can find frontend code] (https://github.com/AkhilxNair/chat-go-graphql/tree/master/frontend)
