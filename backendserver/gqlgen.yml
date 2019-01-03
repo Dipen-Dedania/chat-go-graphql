@@ -3,12 +3,13 @@
 # Refer to https://gqlgen.com/config/
 # for detailed .gqlgen.yml documentation.
 
-schema:
-- schema.graphql
+schema: schema.graphql
 exec:
-  filename: generated.go
+  filename: app/graph/generated.go
+
 model:
-  filename: models_gen.go
+  filename: app/model/models_gen.go
+
 resolver:
-  filename: resolver.go
+  filename: app/resolver/resolver.go
   type: Resolver

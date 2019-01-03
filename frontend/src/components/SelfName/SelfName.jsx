@@ -1,11 +1,20 @@
 import React, { Component } from "react"; //React
 
 import { gql } from "apollo-boost"; //GraphQL
-import { graphql } from "react-apollo";
+import { graphql, compose } from "react-apollo";
 
 const mutation = gql`
   mutation adduser($name: String!) {
     joinUser(name: $name) {
+      name
+    }
+  }
+`;
+
+// Query
+const query = gql`
+  {
+    users {
       name
     }
   }
@@ -20,10 +29,12 @@ class SelfName extends Component {
       // Show or Hide Enter Name Box
       welcomeDisplay: "none",
       // The Welcome Message Name
-      welcomeName: ""
+      welcomeName: "",
+      userAlreadyExist: false
     };
 
     this.nameEntered = this.nameEntered.bind(this);
+    this.checkList = this.checkList.bind(this);
   }
 
   //This function is called when the name is entered and we hit enter
@@ -49,7 +60,25 @@ class SelfName extends Component {
             name: e.target.value
           }
         });
+        if (this.checkList(e.target.value)) {
+          this.setState({
+            userAlreadyExist: true
+          });
+        }
       }
+    }
+  }
+
+  checkList(nameToCompare) {
+    return (
+      this.props.data.users.filter(obj => obj.name === nameToCompare).length > 0
+    );
+  }
+  welcomeName() {
+    if (this.state.userAlreadyExist) {
+      return <span>Welcome Back, {this.state.welcomeName} :)</span>;
+    } else {
+      return <span>Welcome, {this.state.welcomeName}</span>;
     }
   }
 
@@ -76,11 +105,14 @@ class SelfName extends Component {
             display: this.state.welcomeDisplay
           }}
         >
-          Welcome, {this.state.welcomeName}
+          {this.welcomeName()}
         </div>
       </div>
     );
   }
 }
 
-export default graphql(mutation)(SelfName);
+export default compose(
+  graphql(mutation),
+  graphql(query)
+)(SelfName);

@@ -22,11 +22,13 @@ class UserList extends Component {
     super();
     this.state = {
       userListDisplay: "none",
-      userSelected: ""
+      userSelected: "",
+      openChatBox: false
     };
 
     this.toggleUserList = this.toggleUserList.bind(this);
     this.callBack = this.callBack.bind(this);
+    this.closeChatBox = this.closeChatBox.bind(this);
   }
 
   toggleUserList() {
@@ -38,7 +40,21 @@ class UserList extends Component {
 
   callBack(userToChatWith) {
     this.setState({
-      userSelected: userToChatWith
+      userSelected: userToChatWith,
+      openChatBox: false
+    });
+
+    setTimeout(
+      function() {
+        this.setState({ openChatBox: true });
+      }.bind(this),
+      200
+    );
+  }
+
+  closeChatBox() {
+    this.setState({
+      openChatBox: false
     });
   }
 
@@ -47,7 +63,14 @@ class UserList extends Component {
       return <div className="ui active centered inline loader" />;
     }
 
+    if (this.props.data.error) {
+      return <h3>Error : Server is Down :( </h3>;
+    }
+
     return this.props.data.users.map(user => {
+      if (this.props.welcomeName === user.name) {
+        return null;
+      }
       return (
         <SingleUser
           key={user.name}
@@ -76,8 +99,10 @@ class UserList extends Component {
           </div>
         </div>
         <ChatBox
-          name={this.state.userSelected}
+          friendName={this.state.userSelected}
           welcomeName={this.props.welcomeName}
+          openChatBox={this.state.openChatBox}
+          closeChatBox={this.closeChatBox}
         />
       </div>
     );
